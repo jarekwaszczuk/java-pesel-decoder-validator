@@ -3,5 +3,7 @@ public class Test {
         Pesel pesel = new Pesel("99999999994");
 
         System.out.println(pesel.validatePesel());
+        System.out.println(pesel.plec());
+        pesel.decodePesel();
     }
 }
