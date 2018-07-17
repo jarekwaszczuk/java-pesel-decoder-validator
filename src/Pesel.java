@@ -31,23 +31,57 @@ public class Pesel {
     }
 
     public void decodePesel() {
-        String rokUrodzenia = "19" + pesel.substring(0, 2);
-        String miesiacUrodzenia = pesel.substring(2, 4);
-        String dzienUrodzenia = pesel.substring(4, 6);
 
-        System.out.printf("Rok urodzenia: %s\n", rokUrodzenia);
-        System.out.printf("Miesiąc urodzenia: %s\n", miesiacUrodzenia);
-        System.out.printf("Dzień urodzenia: %s\n", dzienUrodzenia);
-        System.out.printf("Płeć: %s\n", plec());
+        if (validatePesel() != true) {
+            System.out.println("Suma kontrolna niepoprawna, dekodowanie niemożliwe!");
+        } else {
+            Integer miesiacUrodzeniaZPesel = Integer.parseInt(pesel.substring(2, 4));
+            Integer stulecieRokuUrodzenia = miesiacUrodzeniaZPesel / 20;
+            Integer miesiacUrodzenia = miesiacUrodzeniaZPesel - (stulecieRokuUrodzenia * 20);
+            String stulecie = null;
+            switch (stulecieRokuUrodzenia) {
+                case 0:
+                    stulecie = "19";
+                    break;
+                case 1:
+                    stulecie = "20";
+                    break;
+                case 2:
+                    stulecie = "21";
+                    break;
+                case 3:
+                    stulecie = "22";
+                    break;
+                case 4:
+                    stulecie = "18";
+                    break;
+            }
 
+            String rokUrodzenia = stulecie + pesel.substring(0, 2);
+
+            String dzienUrodzenia = pesel.substring(4, 6);
+
+            System.out.printf("Rok urodzenia: %s\n", rokUrodzenia);
+            System.out.printf("Miesiąc urodzenia: %02d\n", miesiacUrodzenia);
+            System.out.printf("Dzień urodzenia: %s\n", dzienUrodzenia);
+            System.out.printf("Płeć: %s\n", plec());
+        }
     }
 
     public String plec() {
-        int plec = Integer.parseInt(pesel.substring(9, 10));
-        if (plec % 2 == 0 || plec == 0) {
-            return "kobieta";
+        if (validatePesel() != true) {
+            return "Suma kontrolna niepoprawna, dekodowanie niemożliwe!";
         } else {
-            return "mężczyzna";
+            int plec = Integer.parseInt(pesel.substring(9, 10));
+            if (plec % 2 == 0 || plec == 0) {
+                return "kobieta";
+            } else {
+                return "mężczyzna";
+            }
         }
+    }
+
+    public String getPesel() {
+        return pesel;
     }
 }
