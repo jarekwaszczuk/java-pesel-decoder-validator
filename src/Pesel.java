@@ -69,7 +69,7 @@ public class Pesel {
     }
 
     public String plec() {
-        if (validatePesel() != true) {
+        if (validatePesel()) {
             return "Suma kontrolna niepoprawna, dekodowanie niemożliwe!";
         } else {
             int plec = Integer.parseInt(pesel.substring(9, 10));
