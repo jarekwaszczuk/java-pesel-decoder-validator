@@ -32,7 +32,7 @@ public class Pesel {
 
     public void decodePesel() {
 
-        if (validatePesel() != true) {
+        if (validatePesel()) {
             System.out.println("Suma kontrolna niepoprawna, dekodowanie niemożliwe!");
         } else {
             Integer miesiacUrodzeniaZPesel = Integer.parseInt(pesel.substring(2, 4));
