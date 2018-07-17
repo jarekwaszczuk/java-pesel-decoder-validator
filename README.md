@@ -3,7 +3,7 @@ Walidator\Dekoder nr PESEL
 
 Klasa służacą do sprawdzenia poprawności nr PESEL.
 
-ValidatePesel() - sprawdza poprawność sumy kontrolnej,
+validatePesel() - sprawdza poprawność sumy kontrolnej,
 
 decodePesel() - dekoduje wartości z nr pesel (rok, dzień, miesiąc urodzenia, płeć),
 
