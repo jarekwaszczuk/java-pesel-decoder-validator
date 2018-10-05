@@ -6,10 +6,10 @@ public class Pesel {
         this.pesel = pesel;
     }
 
-    public boolean validatePesel() {
+    public boolean isPeselValid() {
         String pesel = this.pesel;
 
-        int ostatniaCyfra = Integer.parseInt(pesel.substring(10, 11));
+        int lastDigit = Integer.parseInt(pesel.substring(10, 11));
         int a = Integer.parseInt(pesel.substring(0, 1));
         int b = Integer.parseInt(pesel.substring(1, 2));
         int c = Integer.parseInt(pesel.substring(2, 3));
@@ -21,9 +21,9 @@ public class Pesel {
         int i = Integer.parseInt(pesel.substring(8, 9));
         int j = Integer.parseInt(pesel.substring(9, 10));
 
-        int suma = 9 * a + 7 * b + 3 * c + 1 * d + 9 * e + 7 * f + 3 * g + 1 * h + 9 * i + 7 * j;
+        int sum = 9 * a + 7 * b + 3 * c + 1 * d + 9 * e + 7 * f + 3 * g + 1 * h + 9 * i + 7 * j;
 
-        if (suma % 10 == ostatniaCyfra) {
+        if (sum % 10 == lastDigit) {
             return true;
         } else {
             return false;
@@ -32,52 +32,52 @@ public class Pesel {
 
     public void decodePesel() {
 
-        if (validatePesel()) {
-            System.out.println("Suma kontrolna niepoprawna, dekodowanie niemożliwe!");
-        } else {
-            Integer miesiacUrodzeniaZPesel = Integer.parseInt(pesel.substring(2, 4));
-            Integer stulecieRokuUrodzenia = miesiacUrodzeniaZPesel / 20;
-            Integer miesiacUrodzenia = miesiacUrodzeniaZPesel - (stulecieRokuUrodzenia * 20);
-            String stulecie = null;
-            switch (stulecieRokuUrodzenia) {
+        if (isPeselValid()) {
+            Integer monthOfBirthFromPesel = Integer.parseInt(pesel.substring(2, 4));
+            Integer centuryOfBirthYear = monthOfBirthFromPesel / 20;
+            Integer monthOfBirth = monthOfBirthFromPesel - (centuryOfBirthYear * 20);
+            String century = null;
+            switch (centuryOfBirthYear) {
                 case 0:
-                    stulecie = "19";
+                    century = "19";
                     break;
                 case 1:
-                    stulecie = "20";
+                    century = "20";
                     break;
                 case 2:
-                    stulecie = "21";
+                    century = "21";
                     break;
                 case 3:
-                    stulecie = "22";
+                    century = "22";
                     break;
                 case 4:
-                    stulecie = "18";
+                    century = "18";
                     break;
             }
 
-            String rokUrodzenia = stulecie + pesel.substring(0, 2);
+            String yearOfBirth = century + pesel.substring(0, 2);
 
-            String dzienUrodzenia = pesel.substring(4, 6);
+            String dayOfBirth = pesel.substring(4, 6);
 
-            System.out.printf("Rok urodzenia: %s\n", rokUrodzenia);
-            System.out.printf("Miesiąc urodzenia: %02d\n", miesiacUrodzenia);
-            System.out.printf("Dzień urodzenia: %s\n", dzienUrodzenia);
-            System.out.printf("Płeć: %s\n", plec());
+            System.out.printf("Rok urodzenia: %s\n", yearOfBirth);
+            System.out.printf("Miesiąc urodzenia: %02d\n", monthOfBirth);
+            System.out.printf("Dzień urodzenia: %s\n", dayOfBirth);
+            System.out.printf("Płeć: %s\n", gender());
+        } else {
+            System.out.println("Suma kontrolna niepoprawna, dekodowanie niemożliwe!");
         }
     }
 
-    public String plec() {
-        if (validatePesel()) {
-            return "Suma kontrolna niepoprawna, dekodowanie niemożliwe!";
-        } else {
+    public String gender() {
+        if (isPeselValid()) {
             int plec = Integer.parseInt(pesel.substring(9, 10));
             if (plec % 2 == 0 || plec == 0) {
                 return "kobieta";
             } else {
                 return "mężczyzna";
             }
+        } else {
+            return "Suma kontrolna niepoprawna, dekodowanie niemożliwe!";
         }
     }
 
